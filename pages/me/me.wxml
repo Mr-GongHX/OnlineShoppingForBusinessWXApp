@@ -42,7 +42,7 @@
             >
             退出登录
             </button>  
-        </view> 
+      </view> 
   </view>
   <view class="toLogin" wx:else>
       <view class="text">

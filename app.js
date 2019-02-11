@@ -35,7 +35,7 @@ App({
   },
   globalData: {
     isLogin: false,
-    userId: "1",
+    shopId: "1",
     nickName: "用户昵称测试数据",
     userProfile: "",
     userInfo: null

@@ -1,2 +1,7 @@
-<!--pages/goodsManagement/goodsManagement.wxml-->
-<text>pages/goodsManagement/goodsManagement.wxml</text>
+<!-- 商品管理页 -->
+<view>
+  <!-- 发布商品 -->
+  <view class="button">  
+      <button class="createGoodsBtn" bindtap='createGoods'>发布商品</button>  
+  </view> 
+</view>

@@ -1,0 +1,83 @@
+/* pages/createGoods/createGoods.wxss */
+
+.form view view {
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.input {
+  background-color: white;
+  font-size: 32rpx;
+  text-align: center;
+  margin-left: 35rpx;
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+  height: 80rpx;
+  width: 90%;
+  line-height: 80rpx;
+  color: #98989f;
+  border: 3rpx black solid; 
+  border-radius: 40rpx;
+}
+
+/* 选择图片 */
+.chooseImgBtn {
+  width: 60%;
+  height: 55rpx;
+  line-height: 50rpx;
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 30rpx;
+}
+
+.goodsname {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsImage {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsPrice {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsAmount {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsInfo {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.button {
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+  padding-bottom: 0rpx;
+}
+
+/* 提交按钮 */
+.createGoodsButton {
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+  padding-bottom: 50rpx;
+}
+
+.createGoodsBtn {
+  width: 90%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 50rpx;
+  color: #FF3030;
+  background-color:white;
+  border: 3rpx solid #FF3030;
+  border-radius: 40rpx;
+}

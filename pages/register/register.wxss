@@ -60,12 +60,12 @@
 }
 
 /* 昵称 */
-.form .nickname {
+.form .shopname {
   margin-left: 8rpx;
   margin-top: 20rpx; 
   width: 94%;
 }
-.form .nickname .input .weui-input {
+.form .shopname .input .weui-input {
   background-color: white;
   font-size: 32rpx;
   text-align: center;

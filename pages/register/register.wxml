@@ -48,14 +48,14 @@
                 />
             </view>
         </view> 
-        <!-- 昵称 -->
-        <view class="nickname">
+        <!-- 商铺名称 -->
+        <view class="shopname">
             <view class="input">
                 <input 
                   class="weui-input" 
-                  bindinput='nicknameInput'
-                  placeholder="请填写您的昵称" 
-                  value='{{nickname}}' 
+                  bindinput='shopnameInput'
+                  placeholder="请填写您的商铺名称" 
+                  value='{{shopname}}' 
                 />
             </view>
         </view>

@@ -4,7 +4,8 @@
     "pages/deliveryManagement/deliveryManagement",
     "pages/me/me",
     "pages/login/login",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/createGoods/createGoods"
   ],
   "window":{
     "backgroundTextStyle":"light",

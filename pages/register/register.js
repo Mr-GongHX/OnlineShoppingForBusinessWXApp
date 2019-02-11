@@ -8,7 +8,7 @@ Page({
     username: "",
     passwordPrevious: "",
     passwordAfter: "",
-    nickname: "",
+    shopname: "",
     isUsernameDuplicate: true
   },
   // 获取用户名
@@ -30,9 +30,9 @@ Page({
     })
   },
   // 获取昵称
-  nicknameInput: function (e) {
+  shopnameInput: function (e) {
     this.setData({
-      nickname: e.detail.value
+      shopname: e.detail.value
     })
   },
   // 提交FORM表单
@@ -41,7 +41,7 @@ Page({
     if(this.data.username === "" || 
       this.data.passwordInputPrevious === "" || 
       this.data.passwordAfter === "" || 
-      this.data.nickname === ""){
+      this.data.shopname === ""){
         wx.showModal({
           title: "请将信息填写完整!",
           showCancel: false
@@ -66,8 +66,10 @@ Page({
             'Accept': 'application/json'
           },
           success: function (res) {
-            // 将返回用户名是否重复的结果（true/false）
-            this.data.isUsernameDuplicate = res.data.isUsernameDuplicate;
+            if(res.statusCode == 200) {
+              // 将返回用户名是否重复的结果（true/false）
+              this.data.isUsernameDuplicate = res.data.isUsernameDuplicate;
+            }
           },
           fail: function() {
             wx.showToast({
@@ -92,7 +94,7 @@ Page({
             method: 'POST',
             data: 'username=' + this.data.username + 
             '&password=' + this.data.passwordAfter + 
-            '&nickname=' + this.data.nickname,
+            '&shopname=' + this.data.shopname,
             header: {
               //设置参数内容类型为x-www-form-urlencoded
               'content-type': 'application/x-www-form-urlencoded',

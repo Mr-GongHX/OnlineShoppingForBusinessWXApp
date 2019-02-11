@@ -1,1 +1,19 @@
 /* pages/goodsManagement/goodsManagement.wxss */
+
+/* 发布商品按钮 */
+.button {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.createGoodsBtn {
+  width: 90%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 400rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 40rpx;
+}

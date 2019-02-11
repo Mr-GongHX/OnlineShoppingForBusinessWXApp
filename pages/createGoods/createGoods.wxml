@@ -1,0 +1,82 @@
+<!-- 发布商品 -->
+<view>
+    <!-- form表单 start -->
+    <form bindsubmit="formSubmit" class="form">
+        <!-- 商品标题 -->
+        <view class="goodsname">
+          <view>标题</view>
+          <input 
+            class='input' 
+            placeholder='请输入商品标题,不要超过20个字' 
+            maxlength='20'
+            bindinput='goodsnameInput' 
+            value='{{goodsname}}'
+          />
+        </view>
+
+        <!-- 商品图片 -->
+        <view class="goodsImage">
+          <view>商品展示图片</view>
+          <view class="button">  
+            <button class="chooseImgBtn" bindtap='chooseImg'>点击选择图片,最多5张</button>  
+          </view> 
+          <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
+            <image 
+              src="{{item}}" 
+              data-index="{{index}}" 
+              mode="widthFix" 
+              bindtap="previewImg" 
+              bindlongpress="deleteImg"
+            />
+          </view>
+        </view>
+
+        <!-- 商品价格 -->
+        <view class="goodsPrice">
+          <view>商品价格</view>
+          <input
+            class='input'
+            type='digit'
+            placeholder='请输入商品价格' 
+            bindinput='goodsPriceInput'
+            value='{{goodsPrice}}'
+          />
+        </view>
+
+        <!-- 商品库存 -->
+        <view class="goodsAmount">
+          <view>商品库存</view>
+          <input
+            class='input'
+            type='number'
+            placeholder='请输入商品库存' 
+            bindinput='goodsAmountInput'
+            value='{{goodsAmount}}'
+          />
+        </view>
+
+        <!-- 商品介绍图片 -->
+        <view class="goodsInfo">
+          <view>商品详情介绍图片</view>
+          <view class="button">  
+            <button class="chooseImgBtn" bindtap='chooseGoodsImgInfo'>点击选择图片,最多5张</button> 
+          </view> 
+          <view class="img" wx:for="{{goodsInfoList}}" wx:for-item="item" wx:key="*this">
+            <image 
+              src="{{item}}" 
+              data-index="{{index}}" 
+              mode="widthFix" 
+              bindtap="previewImg" 
+              bindlongpress="deleteImg"
+            />
+          </view>
+        </view>
+        
+        <!-- 发布商品 -->
+        <view class="createGoodsButton">  
+          <button class="createGoodsBtn" form-type='submit'>提交</button>  
+        </view> 
+    </form>
+    <!-- form表单 end -->
+
+</view>

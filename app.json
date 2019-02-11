@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/goodsManagement/goodsManagement",
+    "pages/deliveryManagement/deliveryManagement",
+    "pages/me/me",
+    "pages/login/login",
+    "pages/register/register"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#FF3030",
+    "navigationBarTitleText": "在线购物网商家版",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "selectedColor": "#FF3030",
+    "backgroundColor": "#FFFFFF",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/goodsManagement/goodsManagement",
+        "text": "商品管理",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-chosen.png"
+      },
+      {
+        "pagePath": "pages/deliveryManagement/deliveryManagement",
+        "text": "发货管理",
+        "iconPath": "images/shoppingCart.png",
+        "selectedIconPath": "images/shoppingCart-chosen.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me-chosen.png"
+      }
+    ]
+  }
+}

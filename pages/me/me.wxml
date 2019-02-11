@@ -1,0 +1,54 @@
+<!-- 我的 -->
+<view class="mine-wrapper">
+  <!-- 头部 start -->
+  <view class="avatar-wrapper">
+      <view class="avatar">
+        <image 
+          wx:if="{{isLogin}}"
+          style="border-radius:50%; border:1rpx solid white;" 
+          src="{{userProfile}}" 
+          bindtap="setUserProfile"
+        />
+        <image 
+          wx:else
+          style="border-radius:50%; border:1rpx solid white;" 
+          src="" 
+        />
+      </view>
+      <view class="show">
+        <text wx:if="{{isLogin}}">{{nickName}}</text>
+        <text wx:else bindtap="toLogin">注册 / 登录</text>
+      </view>
+  </view>
+  <!-- 头部 end -->
+
+  <view class="separate"></view>
+
+  <!-- 底部 start -->
+  <view class="weui-cells weui-cells_after-title" wx:if="{{isLogin}}">
+      <view class="content" bindtap="moveToMyAddress">
+        <text>我的地址</text>
+        <image src="../../images/right.png"></image>
+      </view>
+      <view class="content">
+        <text>我的订单</text>
+        <image src="../../images/right.png"></image>
+      </view>
+      <!-- 退出登录 -->
+      <view class="button">  
+            <button 
+              class="logoutBtn" 
+              bindtap='logout'
+            >
+            退出登录
+            </button>  
+        </view> 
+  </view>
+  <view class="toLogin" wx:else>
+      <view class="text">
+        <view>登录后，您才可以在本购物网站进行管理商</view>
+        <view>品，管理发货等操作 *^_^*</view>
+      </view>
+  </view>
+  <!-- 底部 end -->
+</view>

@@ -115,40 +115,64 @@ Page({
     } else {
       // 上传信息
       var that = this;
-      // 商品展示图片
+      // 商品展示图片列表
       var imgList = that.data.imgList;
-      // 商品介绍图片
+      // 商品介绍图片列表
       var goodsInfoList = that.data.goodsInfoList;
-      for (var i = 0; i < imgList.length; i++) {
+      console.log(that.data.goodsname + ',' + that.data.goodsPrice + "," +that.data.goodsAmount)
+      // for (var i = 0; i < imgList.length; i++) {
         wx.uploadFile({
-          url: app.globalData.root + 'service/WeChatParent.asmx/UploadPic', //仅为示例，非真实的接口地址
-          filePath: imgList[i],
+          url: 'http://192.168.1.3:8080/uploadGoods.do',
+          filePath: imgList[0],
           name: 'goodsImg',
           header: {
             "Content-Type": "multipart/form-data"
           },
-          success: function (res) {
-            if(res.statusCode == 200) {
-              var data = res.data
-            }
-          }
-        });
-      } 
-      for (var i = 0; i < goodsInfoList.length; i++) {
-        wx.uploadFile({
-          url: app.globalData.root + 'service/WeChatParent.asmx/UploadPic', //仅为示例，非真实的接口地址
-          filePath: goodsInfoList[i],
-          name: 'goodsImgInfo',
-          header: {
-            "Content-Type": "multipart/form-data"
+          formData: {
+            shopId: that.data.shopId,
+            goodsname: that.data.goodsname,
+            goodsPrice: that.data.goodsPrice,
+            goodsAmount: that.data.goodsAmount
           },
           success: function (res) {
-            if (res.statusCode == 200) {
+            console.log("qwer")
+            if(res.statusCode == 200) {
               var data = res.data
+              console.log(data)
             }
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '提交失败',
+              icon: 'loading',
+              duration: 1000
+            });
           }
         });
-      } 
+        console.log("ddd")
+      // } 
+    //   for (var i = 0; i < goodsInfoList.length; i++) {
+    //     wx.uploadFile({
+    //       url: 'http://localhost:8080',
+    //       filePath: goodsInfoList[i],
+    //       name: 'goodsImgInfo',
+    //       header: {
+    //         "Content-Type": "multipart/form-data"
+    //       },
+    //       success: function (res) {
+    //         if (res.statusCode == 200) {
+    //           var data = res.data
+    //         }
+    //       },
+    //       fail: function (res) {
+    //         wx.showToast({
+    //           title: '提交失败',
+    //           icon: 'loading',
+    //           duration: 1000
+    //         });
+    //       }
+    //     });
+    //   } 
     }
   }
 })

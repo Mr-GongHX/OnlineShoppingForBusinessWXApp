@@ -9,11 +9,14 @@ Page({
    */
   data: {
     shopId: '',
+    typeId: '',
+    type: '',
+    typeArray: ['电脑','手机','外设'],
     goodsname: '',
-    imgList: '',
+    imgList: [],
     goodsPrice: '',
     goodsAmount: '',
-    goodsInfoList: ''
+    goodsInfoList: []
   },
 
   /**
@@ -25,6 +28,22 @@ Page({
   // 商品标题
   goodsnameInput: function (e) {
     this.data.goodsname = e.detail.value;
+  },
+  // 商品价格
+  goodsPriceInput: function (e) {
+    this.data.goodsPrice = e.detail.value;
+  },
+  // 商品库存
+  goodsAmountInput: function (e) {
+    this.data.goodsAmount = e.detail.value;
+  },
+  // 商品类型
+  bindPickerChange: function (e) {
+    this.data.typeId = e.detail.value;
+    this.setData({
+      type: this.data.typeArray[e.detail.value] 
+    });
+    console.log(this.data.typeId)
   },
   //选择商品展示图片
   chooseImg: function (e) {
@@ -56,16 +75,7 @@ Page({
         }); 
         console.log(imgList);
       }
-    });
-      
-  },
-  // 商品价格
-  goodsPriceInput: function (e) {
-    this.data.goodsPrice = e.detail.value;
-  },
-  // 商品库存
-  goodsAmountInput: function (e) {
-    this.data.goodsAmount = e.detail.value;
+    });     
   },
   // 选择商品介绍图片
   chooseGoodsImgInfo: function (e) {
@@ -103,9 +113,10 @@ Page({
   formSubmit: function () {
     // 检测信息是否填写完整
     if(this.data.goodsname == '' || 
-      this.data.imgList == '' ||
+      this.data.typeId == '' ||
       this.data.goodsPrice == '' ||
       this.data.goodsAmount == '' ||
+      this.data.imgList == '' ||
       this.data.goodsInfoList == '') {
         wx.showToast({
           title: '请填写完整！',
@@ -120,19 +131,32 @@ Page({
       // 商品介绍图片列表
       var goodsInfoList = that.data.goodsInfoList;
       console.log(that.data.goodsname + ',' + that.data.goodsPrice + "," +that.data.goodsAmount)
-      // for (var i = 0; i < imgList.length; i++) {
+
+      wx.request({
+        url: 'http://192.168.1.3:8080/uploadGoods/goodsInfo.do',
+        method: "POST",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {
+          'shopId': encodeURI(that.data.shopId),
+          'typeId': encodeURI(that.data.typeId),
+          'goodsname': encodeURI(that.data.goodsname),
+          'goodsPrice': encodeURI(that.data.goodsPrice),
+          'goodsAmount': encodeURI(that.data.goodsAmount)
+        }
+      })
+      // 上传商品展示图
+      for (var i = 0; i < imgList.length; i++) {
         wx.uploadFile({
-          url: 'http://192.168.1.3:8080/uploadGoods.do',
-          filePath: imgList[0],
+          url: 'http://192.168.1.3:8080/uploadGoods/goodsImg.do',
+          filePath: imgList[i],
           name: 'goodsImg',
           header: {
             "Content-Type": "multipart/form-data"
           },
           formData: {
-            shopId: that.data.shopId,
-            goodsname: that.data.goodsname,
-            goodsPrice: that.data.goodsPrice,
-            goodsAmount: that.data.goodsAmount
+            
           },
           success: function (res) {
             console.log("qwer")
@@ -150,29 +174,34 @@ Page({
           }
         });
         console.log("ddd")
-      // } 
-    //   for (var i = 0; i < goodsInfoList.length; i++) {
-    //     wx.uploadFile({
-    //       url: 'http://localhost:8080',
-    //       filePath: goodsInfoList[i],
-    //       name: 'goodsImgInfo',
-    //       header: {
-    //         "Content-Type": "multipart/form-data"
-    //       },
-    //       success: function (res) {
-    //         if (res.statusCode == 200) {
-    //           var data = res.data
-    //         }
-    //       },
-    //       fail: function (res) {
-    //         wx.showToast({
-    //           title: '提交失败',
-    //           icon: 'loading',
-    //           duration: 1000
-    //         });
-    //       }
-    //     });
-    //   } 
+      } 
+
+      // 上传商品详情图
+      for (var i = 0; i < goodsInfoList.length; i++) {
+        wx.uploadFile({
+          url: 'http://192.168.1.3:8080/uploadGoods/goodsImgInfo.do',
+          filePath: goodsInfoList[i],
+          name: 'goodsImgInfo',
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          formData: {
+            
+          },
+          success: function (res) {
+            if (res.statusCode == 200) {
+              var data = res.data
+            }
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '提交失败',
+              icon: 'loading',
+              duration: 1000
+            });
+          }
+        });
+      } 
     }
   }
 })

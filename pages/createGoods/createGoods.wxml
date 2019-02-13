@@ -14,23 +14,6 @@
           />
         </view>
 
-        <!-- 商品图片 -->
-        <view class="goodsImage">
-          <view>商品展示图片</view>
-          <view class="button">  
-            <button class="chooseImgBtn" bindtap='chooseImg'>点击选择图片,最多5张</button>  
-          </view> 
-          <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
-            <image 
-              src="{{item}}" 
-              data-index="{{index}}" 
-              mode="widthFix" 
-              bindtap="previewImg" 
-              bindlongpress="deleteImg"
-            />
-          </view>
-        </view>
-
         <!-- 商品价格 -->
         <view class="goodsPrice">
           <view>商品价格</view>
@@ -53,6 +36,34 @@
             bindinput='goodsAmountInput'
             value='{{goodsAmount}}'
           />
+        </view>
+
+        <!-- 商品类型 -->
+        <view class="goodsAmount">          
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeArray}}">
+            <view>
+              商品类型
+              <view class='chooseTypeBtn' wx:if="{{type==''}}">请选择</view>
+              <view class='chooseTypeBtn' wx:else>{{type}}</view>          
+            </view>
+          </picker>
+        </view>
+
+        <!-- 商品图片 -->
+        <view class="goodsImage">
+          <view>商品展示图片</view>
+          <view class="button">  
+            <button class="chooseImgBtn" bindtap='chooseImg'>点击选择图片,最多5张</button>  
+          </view> 
+          <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
+            <image 
+              src="{{item}}" 
+              data-index="{{index}}" 
+              mode="widthFix" 
+              bindtap="previewImg" 
+              bindlongpress="deleteImg"
+            />
+          </view>
         </view>
 
         <!-- 商品介绍图片 -->

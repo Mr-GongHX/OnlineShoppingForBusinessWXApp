@@ -20,6 +20,20 @@
   border-radius: 40rpx;
 }
 
+/* 选择类型 */
+.chooseTypeBtn {
+  width: 60%;
+  height: 55rpx;
+  line-height: 50rpx;
+  margin-left: 150rpx;
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 30rpx;
+}
+
 /* 选择图片 */
 .chooseImgBtn {
   width: 60%;

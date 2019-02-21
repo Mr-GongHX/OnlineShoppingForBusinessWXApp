@@ -20,6 +20,7 @@
           <input
             class='input'
             type='digit'
+            maxlength='10'
             placeholder='请输入商品价格' 
             bindinput='goodsPriceInput'
             value='{{goodsPrice}}'
@@ -32,6 +33,7 @@
           <input
             class='input'
             type='number'
+            maxlength='9'
             placeholder='请输入商品库存' 
             bindinput='goodsAmountInput'
             value='{{goodsAmount}}'

@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    urlPrefix: '',
     goodsId: '',
     shopId: '',
     typeId: '',
@@ -17,34 +18,44 @@ Page({
     imgList: [],
     goodsPrice: '',
     goodsAmount: '',
-    goodsInfoList: []
+    goodsInfoList: [],
+    imgListStatus: false,
+    goodsInfoListStatus: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.shopId = app.globalData.shopId;
+    this.setData({
+      urlPrefix : app.globalData.urlPrefix,
+      shopId : app.globalData.shopId
+    });
   },
   // 商品标题
   goodsNameInput: function (e) {
-    this.data.goodsName = e.detail.value;
+    this.setData({
+      goodsName : e.detail.value
+    })
   },
   // 商品价格
   goodsPriceInput: function (e) {
-    this.data.goodsPrice = e.detail.value;
+    this.setData({
+      goodsPrice : e.detail.value
+    })
   },
   // 商品库存
   goodsAmountInput: function (e) {
-    this.data.goodsAmount = e.detail.value;
+    this.setData({
+      goodsAmount : e.detail.value
+    })
   },
   // 商品类型
   bindPickerChange: function (e) {
-    this.data.typeId = e.detail.value;
     this.setData({
+      typeId : e.detail.value,
       type: this.data.typeArray[e.detail.value] 
     });
-    console.log(this.data.typeId)
   },
   //选择商品展示图片
   chooseImg: function (e) {
@@ -74,7 +85,6 @@ Page({
         that.setData({
           imgList: imgList
         }); 
-        console.log(imgList);
       }
     });     
   },
@@ -106,7 +116,6 @@ Page({
         that.setData({
           goodsInfoList: goodsInfoList
         });
-        console.log(goodsInfoList);
       }
     });
   },
@@ -116,7 +125,9 @@ Page({
     if(this.data.goodsName == '' || 
       this.data.typeId == '' ||
       this.data.goodsPrice == '' ||
-      this.data.goodsAmount == '') {
+      this.data.goodsAmount == '' ||
+      this.data.imgList == '' ||
+      this.data.goodsInfoList == '') {
         wx.showToast({
           title: '请填写完整！',
           icon: 'loading',
@@ -129,10 +140,9 @@ Page({
       var imgList = that.data.imgList;
       // 商品介绍图片列表
       var goodsInfoList = that.data.goodsInfoList;
-      console.log(that.data.goodsName + ',' + that.data.goodsPrice + "," +that.data.goodsAmount)
       // 上传商品参数
       wx.request({
-        url: 'http://192.168.1.3:8080/goods/uploadGoodsInfo.do',
+        url: that.data.urlPrefix + 'goods/uploadGoodsInfo.do',
         method: "POST",
         header: {
           "content-type": "application/x-www-form-urlencoded"
@@ -147,12 +157,13 @@ Page({
         success: function(res){
           if(res.statusCode == 200){
             // 获取刚插入数据的商品id
-            that.data.goodsId = res.data;
-            console.log("商品ID："+that.data.goodsId);
+            that.setData({
+              goodsId : res.data
+            });          
             // 上传商品展示图
-            for (var i = 0; i < imgList.length; i++) {
+            for (var i = 0; i < imgList.length; i ++) {
               wx.uploadFile({
-                url: 'http://192.168.1.3:8080/goods/uploadGoodsImg-' + that.data.goodsId,
+                url: that.data.urlPrefix + 'goods/uploadGoodsImg-' + that.data.goodsId,
                 filePath: imgList[i],
                 name: 'goodsImg',
                 header: {
@@ -160,7 +171,9 @@ Page({
                 },
                 success: function (res) {
                   if (res.statusCode == 200) {
-                    console.log(res.data)
+                    that.setData({
+                      imgListStatus : true
+                    })
                   }
                 },
                 fail: function (res) {
@@ -175,7 +188,7 @@ Page({
             // 上传商品详情图
             for (var i = 0; i < goodsInfoList.length; i++) {
               wx.uploadFile({
-                url: 'http://192.168.1.3:8080/goods/uploadGoodsImgInfo-' + that.data.goodsId,
+                url: that.data.urlPrefix + 'goods/uploadGoodsImgInfo-' + that.data.goodsId,
                 filePath: goodsInfoList[i],
                 name: 'goodsImgInfo',
                 header: {
@@ -183,7 +196,10 @@ Page({
                 },
                 success: function (res) {
                   if (res.statusCode == 200) {
-                    console.log(res.data)
+                    that.setData({
+                      goodsInfoListStatus : true
+                    })
+
                   }
                 },
                 fail: function (res) {
@@ -195,17 +211,34 @@ Page({
                 }
               });
             } 
-            // wx.showToast({
-            //   title: '提交成功！',
-            //   icon: 'success',
-            //   duration: 1000
-            // });
-            // setTimeout(function(){
-            //   wx.navigateBack({
-            //     count: 1
-            //   });
-            // },1000);
-            // clearTimeout();  
+            // 全部提交成功
+            /**
+             * 需要设定延迟，因为状态的改变需要wx.request()的请求成功作为判断条件，而此请求需要一定的时间。若不设定延迟，
+             * 则状态还来不及赋值，会引起业务错误，造成判断错误
+             */           
+            setTimeout(function(){
+              if(that.data.imgListStatus && that.data.goodsInfoListStatus == true){
+                wx.showToast({
+                  title: '提交成功！',
+                  icon: 'success',
+                  duration: 1000
+                });
+                setTimeout(function(){
+                  wx.navigateBack({
+                    count: 1
+                  });
+                },500);
+                clearTimeout();  
+              } else {
+                // 部分信息提交失败
+                wx.showToast({
+                  title: '提交失败',
+                  icon: 'loading',
+                  duration: 1000
+                });
+              }
+            },500);
+            clearTimeout();
           }
         },
         fail: function (res) {

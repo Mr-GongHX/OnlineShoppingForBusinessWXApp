@@ -34,7 +34,7 @@
           商品展示图:
           <view>
             <image wx:if="{{item.goodsPicturePath}}" 
-              src='http://192.168.1.3:8080/goods/showMyGoodsImg-goodsImg-{{item.goodsId}}' 
+              src='{{urlPrefix}}goods/showMyGoodsImg-goodsImg-{{item.goodsId}}' 
             />
             <text wx:else>您未上传商品展示图！</text>
           </view>
@@ -43,7 +43,7 @@
           商品详情图：
           <view>
             <image wx:if="{{item.goodsPictureInfoPath}}"  
-              src='http://192.168.1.3:8080/goods/showMyGoodsImg-goodsImgInfo-{{item.goodsId}}'
+              src='{{urlPrefix}}goods/showMyGoodsImg-goodsImgInfo-{{item.goodsId}}'
             />
             <text wx:else>您未上传商品详情图!</text>
           </view>

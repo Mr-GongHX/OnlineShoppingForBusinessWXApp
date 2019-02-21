@@ -1,4 +1,6 @@
 // pages/myGoods/myGoods.js
+
+// 获取小程序实例
 const app = getApp();
 Page({
 
@@ -6,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    urlPrefix: '',
     shopId: '',
     goodsList: []
   },
@@ -14,10 +17,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      urlPrefix : app.globalData.urlPrefix,
+      shopId : app.globalData.shopId
+    }); 
     var that = this;
-    that.data.shopId = app.globalData.shopId;
     wx.request({
-      url: 'http://'+ app.globalData.ip + ':8080/goods/showMyGoods-' + that.data.shopId,
+      url: that.data.urlPrefix + 'goods/showMyGoods-' + that.data.shopId,
       method: "POST",
       header: {
         "content-type": "application/x-www-form-urlencoded"
@@ -25,27 +31,12 @@ Page({
       success: function(res) {
         var result =  res.data;
         if(res.statusCode == 200){
-          console.log("Goods:" + JSON.stringify(res.data));
-          // that.data.goodsList = JSON.stringify(res.data);
+          console.log("Goods:" + JSON.stringify(result));
           that.setData({
             goodsList: result
           });       
         }
       }
     });
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
+  }
 })

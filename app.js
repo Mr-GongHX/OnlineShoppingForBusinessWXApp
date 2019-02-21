@@ -35,6 +35,7 @@ App({
   },
   globalData: {
     isLogin: false,
+    ip: "192.168.1.3",
     shopId: "1",
     nickName: "用户昵称测试数据",
     userProfile: "",

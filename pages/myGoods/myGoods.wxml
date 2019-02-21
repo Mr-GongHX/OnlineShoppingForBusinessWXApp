@@ -1,0 +1,54 @@
+<!-- 我的商品 -->
+<view class="container">
+  <view wx:if="{{goodsList==''}}">
+    您尚未发布商品
+  </view>
+  <view wx:else>
+    <view class="goodsList" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
+      <view class="goods">
+        <view>
+          商品名称:
+          <text>{{item.goodsName}}</text>
+        </view>
+        <view>
+          商品类型:
+          <text wx:if="{{item.typeId==0}}">电脑</text>
+          <text wx:elif="{{item.typeId==1}}">手机</text>
+          <text wx:elif="{{item.typeId==2}}">外设</text>
+        </view>
+        <view>
+          商品状态:
+          <text wx:if="{{item.goodsStatus==0}}">待审核</text>
+          <text wx:elif="{{item.goodsStatus==1}}">上架</text>
+          <text wx:elif="{{item.goodsStatus==2}}">下架</text>
+        </view>
+        <view>
+          商品价格:
+          <text>{{item.goodsPrice}}</text>
+        </view>
+        <view>
+          商品库存:
+          <text>{{item.goodsAmount}}</text>
+        </view>
+        <view>
+          商品展示图:
+          <view>
+            <image wx:if="{{item.goodsPicturePath}}" 
+              src='http://192.168.1.3:8080/goods/showMyGoodsImg-goodsImg-{{item.goodsId}}' 
+            />
+            <text wx:else>您未上传商品展示图！</text>
+          </view>
+        </view>
+        <view>
+          商品详情图：
+          <view>
+            <image wx:if="{{item.goodsPictureInfoPath}}"  
+              src='http://192.168.1.3:8080/goods/showMyGoodsImg-goodsImgInfo-{{item.goodsId}}'
+            />
+            <text wx:else>您未上传商品详情图!</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

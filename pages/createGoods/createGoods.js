@@ -8,11 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    goodsId: '',
     shopId: '',
     typeId: '',
     type: '',
     typeArray: ['电脑','手机','外设'],
-    goodsname: '',
+    goodsName: '',
     imgList: [],
     goodsPrice: '',
     goodsAmount: '',
@@ -26,8 +27,8 @@ Page({
     this.data.shopId = app.globalData.shopId;
   },
   // 商品标题
-  goodsnameInput: function (e) {
-    this.data.goodsname = e.detail.value;
+  goodsNameInput: function (e) {
+    this.data.goodsName = e.detail.value;
   },
   // 商品价格
   goodsPriceInput: function (e) {
@@ -112,12 +113,10 @@ Page({
   // 发布商品
   formSubmit: function () {
     // 检测信息是否填写完整
-    if(this.data.goodsname == '' || 
+    if(this.data.goodsName == '' || 
       this.data.typeId == '' ||
       this.data.goodsPrice == '' ||
-      this.data.goodsAmount == '' ||
-      this.data.imgList == '' ||
-      this.data.goodsInfoList == '') {
+      this.data.goodsAmount == '') {
         wx.showToast({
           title: '请填写完整！',
           icon: 'loading',
@@ -130,78 +129,93 @@ Page({
       var imgList = that.data.imgList;
       // 商品介绍图片列表
       var goodsInfoList = that.data.goodsInfoList;
-      console.log(that.data.goodsname + ',' + that.data.goodsPrice + "," +that.data.goodsAmount)
-
+      console.log(that.data.goodsName + ',' + that.data.goodsPrice + "," +that.data.goodsAmount)
+      // 上传商品参数
       wx.request({
-        url: 'http://192.168.1.3:8080/uploadGoods/goodsInfo.do',
+        url: 'http://192.168.1.3:8080/goods/uploadGoodsInfo.do',
         method: "POST",
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "content-type": "application/x-www-form-urlencoded"
         },
         data: {
           'shopId': encodeURI(that.data.shopId),
           'typeId': encodeURI(that.data.typeId),
-          'goodsname': encodeURI(that.data.goodsname),
+          'goodsName': encodeURI(that.data.goodsName),
           'goodsPrice': encodeURI(that.data.goodsPrice),
           'goodsAmount': encodeURI(that.data.goodsAmount)
+        },
+        success: function(res){
+          if(res.statusCode == 200){
+            // 获取刚插入数据的商品id
+            that.data.goodsId = res.data;
+            console.log("商品ID："+that.data.goodsId);
+            // 上传商品展示图
+            for (var i = 0; i < imgList.length; i++) {
+              wx.uploadFile({
+                url: 'http://192.168.1.3:8080/goods/uploadGoodsImg-' + that.data.goodsId,
+                filePath: imgList[i],
+                name: 'goodsImg',
+                header: {
+                  "Content-Type": "multipart/form-data"
+                },
+                success: function (res) {
+                  if (res.statusCode == 200) {
+                    console.log(res.data)
+                  }
+                },
+                fail: function (res) {
+                  wx.showToast({
+                    title: '提交失败',
+                    icon: 'loading',
+                    duration: 1000
+                  });
+                }
+              });
+            }
+            // 上传商品详情图
+            for (var i = 0; i < goodsInfoList.length; i++) {
+              wx.uploadFile({
+                url: 'http://192.168.1.3:8080/goods/uploadGoodsImgInfo-' + that.data.goodsId,
+                filePath: goodsInfoList[i],
+                name: 'goodsImgInfo',
+                header: {
+                  "Content-Type": "multipart/form-data"
+                },
+                success: function (res) {
+                  if (res.statusCode == 200) {
+                    console.log(res.data)
+                  }
+                },
+                fail: function (res) {
+                  wx.showToast({
+                    title: '提交失败',
+                    icon: 'loading',
+                    duration: 1000
+                  });
+                }
+              });
+            } 
+            // wx.showToast({
+            //   title: '提交成功！',
+            //   icon: 'success',
+            //   duration: 1000
+            // });
+            // setTimeout(function(){
+            //   wx.navigateBack({
+            //     count: 1
+            //   });
+            // },1000);
+            // clearTimeout();  
+          }
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '提交失败',
+            icon: 'loading',
+            duration: 1000
+          });
         }
-      })
-      // 上传商品展示图
-      for (var i = 0; i < imgList.length; i++) {
-        wx.uploadFile({
-          url: 'http://192.168.1.3:8080/uploadGoods/goodsImg.do',
-          filePath: imgList[i],
-          name: 'goodsImg',
-          header: {
-            "Content-Type": "multipart/form-data"
-          },
-          formData: {
-            
-          },
-          success: function (res) {
-            console.log("qwer")
-            if(res.statusCode == 200) {
-              var data = res.data
-              console.log(data)
-            }
-          },
-          fail: function (res) {
-            wx.showToast({
-              title: '提交失败',
-              icon: 'loading',
-              duration: 1000
-            });
-          }
-        });
-        console.log("ddd")
-      } 
-
-      // 上传商品详情图
-      for (var i = 0; i < goodsInfoList.length; i++) {
-        wx.uploadFile({
-          url: 'http://192.168.1.3:8080/uploadGoods/goodsImgInfo.do',
-          filePath: goodsInfoList[i],
-          name: 'goodsImgInfo',
-          header: {
-            "Content-Type": "multipart/form-data"
-          },
-          formData: {
-            
-          },
-          success: function (res) {
-            if (res.statusCode == 200) {
-              var data = res.data
-            }
-          },
-          fail: function (res) {
-            wx.showToast({
-              title: '提交失败',
-              icon: 'loading',
-              duration: 1000
-            });
-          }
-        });
-      } 
+      });      
     }
   }
 })

@@ -1,0 +1,14 @@
+/* pages/myGoods/myGoods.wxss */
+.container{
+  width: 100%
+}
+
+.goodsList{
+  width: 100%;
+}
+
+.goods{
+  width: 100%;
+  /* height: 200rpx; */
+  border-bottom: 20rpx #eee solid;
+}

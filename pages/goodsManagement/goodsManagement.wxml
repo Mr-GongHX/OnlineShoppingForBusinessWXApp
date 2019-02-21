@@ -4,4 +4,9 @@
   <view class="button">  
       <button class="createGoodsBtn" bindtap='createGoods'>发布商品</button>  
   </view> 
+
+  <!-- 我的商品 -->
+  <navigator class="button" hover-class="none" url='../myGoods/myGoods'>  
+      <button class="myGoodsBtn">我的商品</button>  
+  </navigator>
 </view>

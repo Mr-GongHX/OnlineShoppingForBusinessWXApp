@@ -11,7 +11,18 @@
   width: 90%;
   height: 80rpx;
   line-height: 80rpx;
-  margin-top: 400rpx;
+  margin-top: 100rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 40rpx;
+}
+
+.myGoodsBtn {
+  width: 90%;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 100rpx;
   color: rgb(5, 146, 228);
   background-color:white;
   border: 3rpx solid rgb(5, 146, 228);

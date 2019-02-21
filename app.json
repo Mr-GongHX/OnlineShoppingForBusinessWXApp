@@ -5,7 +5,8 @@
     "pages/me/me",
     "pages/login/login",
     "pages/register/register",
-    "pages/createGoods/createGoods"
+    "pages/createGoods/createGoods",
+    "pages/myGoods/myGoods"
   ],
   "window":{
     "backgroundTextStyle":"light",

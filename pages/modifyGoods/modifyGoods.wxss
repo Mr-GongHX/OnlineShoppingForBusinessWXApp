@@ -1,0 +1,131 @@
+/* pages/modifyGoods/modifyGoods.wxss */
+.container view view {
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.input {
+  background-color: white;
+  font-size: 32rpx;
+  text-align: center;
+  margin-left: 35rpx;
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+  height: 80rpx;
+  width: 90%;
+  line-height: 80rpx;
+  color: #98989f;
+  border: 3rpx black solid; 
+  border-radius: 40rpx;
+}
+
+/* 选择类型 */
+.chooseTypeBtn {
+  width: 60%;
+  height: 55rpx;
+  line-height: 50rpx;
+  margin-left: 150rpx;
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 30rpx;
+}
+
+/* 选择状态 */
+.chooseStatusBtn {
+  width: 60%;
+  height: 55rpx;
+  line-height: 50rpx;
+  margin-left: 150rpx;
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 30rpx;
+}
+
+/* 选择图片 */
+.chooseImgBtn {
+  width: 60%;
+  height: 55rpx;
+  line-height: 50rpx;
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 30rpx;
+}
+
+.goodsname {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsImage {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsPrice {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsAmount {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.goodsInfo {
+  width: 100%;
+  border-bottom: 20rpx solid #eee;
+}
+
+.button {
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+  padding-bottom: 0rpx;
+}
+
+/* 商品操作区 */
+.goodsButton {
+  width: 100%;
+  height: 150rpx;
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+  padding-bottom: 50rpx;
+}
+
+/* 修改商品按钮 */
+.modifyGoodsBtn {
+  float: left;
+  width: 300rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+  margin-bottom: 50rpx;
+  color: rgb(5, 146, 228);
+  background-color:white;
+  border: 3rpx solid rgb(5, 146, 228);
+  border-radius: 40rpx;
+}
+
+/* 删除商品按钮 */
+.deleteGoodsBtn {
+  float: right;
+  width: 300rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 50rpx;
+  margin-right: 50rpx;
+  margin-bottom: 50rpx;
+  color: #FF3030;
+  background-color:white;
+  border: 3rpx solid #FF3030;
+  border-radius: 40rpx;
+}

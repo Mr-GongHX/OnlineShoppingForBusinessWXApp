@@ -6,7 +6,8 @@
     "pages/login/login",
     "pages/register/register",
     "pages/createGoods/createGoods",
-    "pages/myGoods/myGoods"
+    "pages/myGoods/myGoods",
+    "pages/modifyGoods/modifyGoods"
   ],
   "window":{
     "backgroundTextStyle":"light",

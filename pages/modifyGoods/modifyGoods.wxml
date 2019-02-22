@@ -1,0 +1,109 @@
+<!-- 修改商品 -->
+<view class='container'>
+  <!-- form表单 start -->
+  <!-- <form bindsubmit="formSubmit" class="form"> -->
+      <!-- 商品标题 -->
+      <view class="goodsname">
+        <view>标题</view>
+        <input 
+          class='input' 
+          placeholder='请输入商品标题,不要超过20个字' 
+          maxlength='20'
+          bindinput='goodsNameInput' 
+          value='{{goodsName}}'
+        />
+      </view>
+
+      <!-- 商品价格 -->
+      <view class="goodsPrice">
+        <view>商品价格</view>
+        <input
+          class='input'
+          type='digit'
+          maxlength='10'
+          placeholder='请输入商品价格' 
+          bindinput='goodsPriceInput'
+          value='{{goodsPrice}}'
+        />
+      </view>
+
+      <!-- 商品库存 -->
+      <view class="goodsAmount">
+        <view>商品库存</view>
+        <input
+          class='input'
+          type='number'
+          maxlength='9'
+          placeholder='请输入商品库存' 
+          bindinput='goodsAmountInput'
+          value='{{goodsAmount}}'
+        />
+      </view>
+
+      <!-- 商品类型 -->
+      <view class="goodsAmount">          
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeArray}}">
+          <view>
+            商品类型
+            <view class='chooseTypeBtn' wx:if="{{type==''}}">请选择</view>
+            <view class='chooseTypeBtn' wx:else>{{type}}</view>          
+          </view>
+        </picker>
+      </view>
+
+      <!-- 商品状态 -->
+      <view class="goodsAmount">          
+        <picker bindchange="statusChange" value="{{index}}" range="{{statusArray}}">
+          <view>
+            商品状态
+            <view class='chooseStatusBtn' wx:if="{{status==''}}">请选择</view>
+            <view class='chooseStatusBtn' wx:else>{{status}}</view>          
+          </view>
+        </picker>
+      </view>
+
+      <!-- 商品图片 -->
+      <view class="goodsImage">
+        <view>商品展示图片</view>
+        <view class="button">  
+          <button class="chooseImgBtn" bindtap='chooseImg'>点击选择图片,最多5张</button>  
+        </view> 
+        <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
+          <image 
+            src="{{item}}" 
+            data-index="{{index}}" 
+            mode="widthFix" 
+            bindtap="previewImg" 
+            bindlongpress="deleteImg"
+          />
+        </view>
+      </view>
+
+      <!-- 商品介绍图片 -->
+      <view class="goodsInfo">
+        <view>商品详情介绍图片</view>
+        <view class="button">  
+          <button class="chooseImgBtn" bindtap='chooseGoodsImgInfo'>点击选择图片,最多5张</button> 
+        </view> 
+        <view class="img" wx:for="{{goodsInfoList}}" wx:for-item="item" wx:key="*this">
+          <image 
+            src="{{item}}" 
+            data-index="{{index}}" 
+            mode="widthFix" 
+            bindtap="previewImg" 
+            bindlongpress="deleteImg"
+          />
+        </view>
+      </view>
+      
+      <!-- 商品操作 -->
+      <view class="goodsButton">  
+        <!-- 修改商品 -->
+        <button class="modifyGoodsBtn" bindtap='submitGoods'>完成</button>  
+        <!-- 删除商品 --> 
+        <button class="deleteGoodsBtn" bindtap='deleteGoods'>删除</button>  
+      </view> 
+
+  <!-- </form> -->
+  <!-- form表单 end -->
+</view>

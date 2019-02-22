@@ -9,7 +9,7 @@ Page({
    */
   data: {
     isLogin: false,
-    userId: "",
+    shopId: "",
     userProfile: "",
     nickName: ""
   },
@@ -17,10 +17,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    // 初始化设置数据（是否登录，用户Id，用户头像网络地址，用户昵称）
+    // 初始化设置数据（是否登录，商家id，用户头像网络地址，用户昵称）
     this.setData({
       isLogin : app.globalData.isLogin,
-      userId : app.globalData.userId,
+      shopId : app.globalData.shopId,
       userProfile : app.globalData.userProfile,
       nickName : app.globalData.nickName
     });

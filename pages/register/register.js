@@ -1,15 +1,23 @@
 // pages/register/register.js
+
+// 获取小程序实例
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    urlPrefix: "",
     username: "",
     passwordPrevious: "",
     passwordAfter: "",
-    shopname: "",
-    isUsernameDuplicate: true
+    shopname: ""
+  },
+  onLoad: function (options) {
+    this.setData({
+      urlPrefix: app.globalData.urlPrefix
+    })
   },
   // 获取用户名
   usernameInput: function (e) {
@@ -47,6 +55,7 @@ Page({
           showCancel: false
         });
     } else {
+      var that = this;
       // 输入密码判断是否一致
       if(this.data.passwordPrevious !== this.data.passwordAfter){
         wx.showModal({
@@ -57,18 +66,83 @@ Page({
       } else {
         // 发起POST查询用户名是否重复请求
         wx.request({
-          url: 'http://localhost:8080/checkUsernameDuplicate.do',
+          url: that.data.urlPrefix + 'shop/checkShopAdminNameDuplicate.do',
           method: 'POST',
-          data: 'username=' + this.data.username,
+          data: {
+            'username': encodeURI(that.data.username)
+          },
           header: {
             //设置参数内容类型为x-www-form-urlencoded
             'content-type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json'
           },
           success: function (res) {
             if(res.statusCode == 200) {
-              // 将返回用户名是否重复的结果（true/false）
-              this.data.isUsernameDuplicate = res.data.isUsernameDuplicate;
+              // 判断用户名是否重复
+              if (res.data) {
+                wx.showToast({
+                  title: '用户名重复！',
+                  icon: 'loading',
+                  duration: 1000,
+                });
+              } else {
+                // 发起POST注册请求
+                wx.request({
+                  url: that.data.urlPrefix + 'shop/shopRegister.do',
+                  method: 'POST',
+                  data: {
+                    'username': encodeURI(that.data.username),
+                    'password': encodeURI(that.data.passwordAfter),
+                    'shopName': encodeURI(that.data.shopname)
+                  },
+                  header: {
+                    //设置参数内容类型为x-www-form-urlencoded
+                    'content-type': 'application/x-www-form-urlencoded',
+                  },
+                  success: function (res) {
+                    if (res.statusCode == 200) {
+                      // 从后台接收注册结果为成功
+                      if(res.data){
+                        // 成功注册
+                        wx.showToast({
+                          title: '注册成功！',
+                          icon: 'success',
+                          duration: 1000,
+                          success: function () {
+                            // 延时1s跳转
+                            setTimeout(function () {
+                              // 返回登录页面进行登录
+                              wx.navigateBack({
+                                delta: 1
+                              })
+                            }, 1000);
+                            // 清空计时器
+                            clearTimeout();
+                          }
+                        });
+                      } else {
+                        wx.showToast({
+                          title: '注册失败！',
+                          icon: 'loading',
+                          duration: 1000
+                        });
+                      }
+                    } else {
+                      wx.showToast({
+                        title: '注册失败！',
+                        icon: 'loading',
+                        duration: 1000
+                      });
+                    }
+                  },
+                  fail: function (res) {
+                    wx.showToast({
+                      title: '注册失败！',
+                      icon: 'loading',
+                      duration: 1000
+                    });
+                  }
+                });
+              }   
             }
           },
           fail: function() {
@@ -78,64 +152,7 @@ Page({
               duration: 1000,
             });
           }         
-        });
-        
-        // 判断用户名是否重复
-        if(this.data.isUsernameDuplicate) {
-          wx.showToast({
-            title: '用户名重复！',
-            icon: 'loading',
-            duration: 1000,
-          });
-        } else {
-          // 发起POST注册请求
-          wx.request({
-            url: 'http://localhost:8080/userRegister.do',
-            method: 'POST',
-            data: 'username=' + this.data.username + 
-            '&password=' + this.data.passwordAfter + 
-            '&shopname=' + this.data.shopname,
-            header: {
-              //设置参数内容类型为x-www-form-urlencoded
-              'content-type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            },
-            success: function (res) {
-              if(res.statusCode == 200) {
-                // 成功注册
-                wx.showToast({
-                  title: '注册成功！',
-                  icon: 'success',
-                  duration: 1000,
-                  success: function () {
-                    // 延时1s跳转
-                    setTimeout(function () {
-                      // 返回登录页面进行登录
-                      wx.navigateBack({
-                        delta: 1
-                      })
-                    }, 1000);
-                    // 清空计时器
-                    clearTimeout();
-                  }
-                });
-              } else {
-                wx.showToast({
-                  title: '注册失败！',
-                  icon: 'loading',
-                  duration: 1000
-                });
-              }
-            },
-            fail: function (res) {
-              wx.showToast({
-                title: '注册失败！',
-                icon: 'loading',
-                duration: 1000
-              });
-            }
-          });
-        }      
+        });      
       }
     }
   }

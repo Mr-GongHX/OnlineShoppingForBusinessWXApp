@@ -26,14 +26,14 @@
 
   <!-- 底部 start -->
   <view class="weui-cells weui-cells_after-title" wx:if="{{isLogin}}">
-      <view class="content" bindtap="moveToMyAddress">
+      <!-- <view class="content" bindtap="moveToMyAddress">
         <text>我的地址</text>
         <image src="../../images/right.png"></image>
       </view>
       <view class="content">
         <text>我的订单</text>
         <image src="../../images/right.png"></image>
-      </view>
+      </view> -->
       <!-- 退出登录 -->
       <view class="button">  
             <button 

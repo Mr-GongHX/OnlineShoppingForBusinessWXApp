@@ -9,8 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    urlPrefix: "",
     username: "",
     password: ""
+  },
+  onLoad: function (options) {
+    this.setData({
+      urlPrefix: app.globalData.urlPrefix
+    });
   },
   // 获取用户名
   usernameInput: function(e) {
@@ -36,7 +42,7 @@ Page({
     } else {
       // 发起POST登录请求
       wx.request({
-        url: 'http://localhost:8080/userLogin.do',
+        url: urlPrefix + 'userLogin.do',
         method: 'POST',
         data: 'username='+this.data.username+'&password='+this.data.password, 
         header: {

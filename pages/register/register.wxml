@@ -21,6 +21,7 @@
                   bindinput='usernameInput'
                   placeholder="请输入用户名" 
                   value='{{username}}' 
+                  maxlength='20'
                 />
             </view>
         </view>
@@ -33,6 +34,7 @@
                   bindinput='passwordInputPrevious'
                   placeholder="请输入密码" 
                   value='{{password}}'
+                  maxlength='20'
                 />
             </view>
         </view>  
@@ -45,6 +47,7 @@
                   bindinput='passwordInputAfter'
                   placeholder="请再次输入您的密码" 
                   value='{{password}}'
+                  maxlength='20'
                 />
             </view>
         </view> 
@@ -55,7 +58,8 @@
                   class="weui-input" 
                   bindinput='shopnameInput'
                   placeholder="请填写您的商铺名称" 
-                  value='{{shopname}}' 
+                  value='{{shopname}}'
+                  maxlength='30' 
                 />
             </view>
         </view>

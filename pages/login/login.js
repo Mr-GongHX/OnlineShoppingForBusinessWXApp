@@ -40,44 +40,48 @@ Page({
       })
     // 成功输入
     } else {
+      var that = this;
       // 发起POST登录请求
       wx.request({
-        url: urlPrefix + 'userLogin.do',
+        url: that.data.urlPrefix + 'shop/shopAdminLogin.do',
         method: 'POST',
-        data: 'username='+this.data.username+'&password='+this.data.password, 
+        data: {
+          'username': encodeURI(that.data.username),
+          'password': encodeURI(that.data.password)
+        },
         header: {
           //设置参数内容类型为x-www-form-urlencoded
-          'content-type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json'
+          'content-type': 'application/x-www-form-urlencoded'
         },
-        success: function (res) {  // 登录成功         
-          // 赋值（昵称）
-          app.globalData.nickName = "res.data.nickName";
-          // 赋值（用户头像）
-          app.globalData.userProfile = "res.data.userProfile";
-          // 赋值（userId）
-          app.globalData.userId = "res.data.userId";
-          // 修改登录状态 isLogin 为 true
-          app.globalData.isLogin = true;
-          // 判断服务器返回的状态码是否是200
-          if (res.statusCode == 200) {
-            wx.showToast({
-              title: '登录成功！',
-              icon: 'success',
-              duration: 1000,
-              success: function() {
-                // 延时1s跳转
-                setTimeout(function(){
-                  // 跳转到“我的”页面
-                  wx.switchTab({
-                    url: "../me/me"
-                  });
-                },1000);
-                // 清空计时器
-                clearTimeout();
-              }
-            });
+        success: function (res) {  
+          // 登录成功
+          if(res.statusCode == 200 && res.data) {
+            // 赋值（shopId）
+            app.globalData.shopId = res.data.shopId;
+            wx.setStorage({
+              key: '',
+              data: '',
+            })
+            // 修改登录状态 isLogin 为 true
+            app.globalData.isLogin = true;
+              wx.showToast({
+                title: '登录成功！',
+                icon: 'success',
+                duration: 1000,
+                success: function () {
+                  // 延时1s跳转
+                  setTimeout(function () {
+                    // 跳转到“我的”页面
+                    wx.switchTab({
+                      url: "../me/me"
+                    });
+                  }, 1000);
+                  // 清空计时器
+                  clearTimeout();
+                }
+              });
           } else {
+            // 登录失败
             wx.showToast({
               title: '登录失败！',
               icon: 'loading',
@@ -85,7 +89,8 @@ Page({
             });
           }
         },
-        fail: function () {  // 登录失败
+        fail: function () {  
+          // 登录失败
           wx.showToast({
             title: '登录失败！',
             icon: 'loading',

@@ -9,7 +9,7 @@
             class='input' 
             focus='true'
             placeholder='请输入商品标题,不要超过20个字' 
-            maxlength='20'
+            maxlength='30'
             bindinput='goodsNameInput' 
             value='{{goodsName}}'
           />

@@ -12,3 +12,20 @@
   /* height: 200rpx; */
   border-bottom: 20rpx #eee solid;
 }
+
+.none {
+  width: 100%;
+  height: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+
+.imageArea{
+  display:flex;                   
+  justify-content: left; 
+}
+image {
+  width: 350rpx;
+  height: 350rpx;
+}

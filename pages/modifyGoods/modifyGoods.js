@@ -17,7 +17,7 @@ Page({
     status: '',
     goodsStatus: '',
     allGoodsStatus: ['待审核','已上架','已下架','未通过','已删除'],
-    statusArray: ['下架'],
+    statusArray: ['上架','下架'],
     goodsPrice: '',
     goodsAmount: ''
   },
@@ -86,8 +86,12 @@ Page({
       goodsStatus: e.detail.value,
       status: this.data.statusArray[e.detail.value]
     });
-    // 商家将商品状态设置为下架
-    if(e.detail.value) {
+    // 商家将商品状态设置为上架
+    if(e.detail.value == 0) {
+      this.setData({
+        goodsStatus: 1
+      });
+    } else if(e.detail.value == 1){
       this.setData({
         goodsStatus: 2
       });
@@ -121,7 +125,6 @@ Page({
             'goodsStatus': encodeURI(that.data.goodsStatus) 
           },
           success: function (res) {
-            // console.log(that.data.goodsName + "," + that.data.goodsPrice + "," + that.data.goodsAmount + "," + that.data.typeId + "," + that.data.goodsStatus)
             if (res.statusCode == 200) {
               wx.showToast({
                 title: '修改成功！',

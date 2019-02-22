@@ -1,0 +1,49 @@
+<!-- 商品列表模板 -->
+<view class="goods">
+  <view>
+    商品名称:
+    <text>{{item.goodsName}}</text>
+  </view>
+  <view>
+    商品类型:
+    <text wx:if="{{item.typeId==0}}">电脑</text>
+    <text wx:elif="{{item.typeId==1}}">手机</text>
+    <text wx:elif="{{item.typeId==2}}">外设</text>
+  </view>
+  <view>
+    商品状态:
+    <text wx:if="{{item.goodsStatus==0}}">待审核</text>
+    <text wx:elif="{{item.goodsStatus==1}}">已上架</text>
+    <text wx:elif="{{item.goodsStatus==2}}">已下架</text>
+    <text wx:elif="{{item.goodsStatus==3}}">未通过</text>
+    <text wx:elif="{{item.goodsStatus==4}}">已删除</text>
+  </view>
+  <view>
+    商品价格:
+    <text>{{item.goodsPrice}}</text>
+  </view>
+  <view>
+    商品库存:
+    <text>{{item.goodsAmount}}</text>
+  </view>
+  <view>
+    商品展示图:
+    <view class='imageArea'>
+      <image wx:if="{{item.goodsPicturePath}}" 
+        src='{{urlPrefix}}goods/showMyGoodsImg-goodsImg-{{item.goodsId}}' 
+        mode='aspectFill'
+      />
+      <text wx:else>您未上传商品展示图！</text>
+    </view>
+  </view>
+  <view>
+    商品详情图：
+    <view class='imageArea'>
+      <image wx:if="{{item.goodsPictureInfoPath}}"  
+        src='{{urlPrefix}}goods/showMyGoodsImg-goodsImgInfo-{{item.goodsId}}'
+        mode='aspectFill'
+      />
+      <text wx:else>您未上传商品详情图!</text>
+    </view>
+  </view>
+</view>

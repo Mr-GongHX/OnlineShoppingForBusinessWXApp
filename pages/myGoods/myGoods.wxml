@@ -1,58 +1,23 @@
 <!-- 我的商品 -->
 <view class="container">
-  <view wx:if="{{goodsList==''}}">
+  <view class='none' wx:if="{{goodsList==''}}">
     您尚未发布商品
   </view>
   <view wx:else>
-    <view class="goodsList" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="*this">
-      <navigator url='../modifyGoods/modifyGoods?goodsId={{item.goodsId}}' hover-class="none">
-        <view class="goods">
-          <view>
-            商品名称:
-            <text>{{item.goodsName}}</text>
-          </view>
-          <view>
-            商品类型:
-            <text wx:if="{{item.typeId==0}}">电脑</text>
-            <text wx:elif="{{item.typeId==1}}">手机</text>
-            <text wx:elif="{{item.typeId==2}}">外设</text>
-          </view>
-          <view>
-            商品状态:
-            <text wx:if="{{item.goodsStatus==0}}">待审核</text>
-            <text wx:elif="{{item.goodsStatus==1}}">已上架</text>
-            <text wx:elif="{{item.goodsStatus==2}}">已下架</text>
-            <text wx:elif="{{item.goodsStatus==3}}">未通过</text>
-            <text wx:elif="{{item.goodsStatus==4}}">已删除</text>
-          </view>
-          <view>
-            商品价格:
-            <text>{{item.goodsPrice}}</text>
-          </view>
-          <view>
-            商品库存:
-            <text>{{item.goodsAmount}}</text>
-          </view>
-          <view>
-            商品展示图:
-            <view>
-              <image wx:if="{{item.goodsPicturePath}}" 
-                src='{{urlPrefix}}goods/showMyGoodsImg-goodsImg-{{item.goodsId}}' 
-              />
-              <text wx:else>您未上传商品展示图！</text>
-            </view>
-          </view>
-          <view>
-            商品详情图：
-            <view>
-              <image wx:if="{{item.goodsPictureInfoPath}}"  
-                src='{{urlPrefix}}goods/showMyGoodsImg-goodsImgInfo-{{item.goodsId}}'
-              />
-              <text wx:else>您未上传商品详情图!</text>
-            </view>
-          </view>
+    <view class="goodsList" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="{{goodsId}}">
+        <!-- 只有商品状态为已上架，已下架才可以编辑并且跳转到商品编辑页面 -->
+        <navigator wx:if="{{item.goodsStatus==1||item.goodsStatus==2}}" 
+          url='../modifyGoods/modifyGoods?goodsId={{item.goodsId}}' 
+          hover-class="none"
+        >
+          <!-- 引入goodsList.wxml模板 -->
+          <include src="../../utils/goodsList.wxml" />
+        </navigator>
+        <!-- 商品状态为待审核，已删除时不可编辑，无法跳转到商品编辑页面 -->
+        <view wx:else>
+          <!-- 引入goodsList.wxml模板 -->
+          <include src="../../utils/goodsList.wxml" />
         </view>
-      </navigator>
     </view>
   </view>
 </view>

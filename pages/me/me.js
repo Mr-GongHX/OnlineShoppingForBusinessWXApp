@@ -16,7 +16,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  onShow: function () {
     this.setData({
       urlPrefix: app.globalData.urlPrefix
     });
@@ -47,6 +47,16 @@ Page({
         });
       },
     })
+    // 需要设定延时
+    setTimeout(function(){
+      if(that.data.shopId != ''){
+        that.setData({
+          shopAdminProfile: that.data.urlPrefix + 
+          'shop/shopAdminProfile-' + that.data.shopId
+        });
+      }
+    },500);
+    clearTimeout();
   },
   /**
    * 用户登录
@@ -112,38 +122,53 @@ Page({
   // 退出登录
   logout: function () {
     var that = this;
-    wx.request({
-      url: that.data.urlPrefix + 'shopAdminLogout.do',
-      method: 'POST',
-      data: {
-        'shopId': shopId
-      }, 
-      header: {
-        //设置参数内容类型为x-www-form-urlencoded
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      success: function (res) {
-        if(res.statusCode == 200) {
-          wx.showToast({
-            title: '退出成功！',
-            icon: 'success',
-            duration: 1000
-          });
-        } else {
-          wx.showToast({
-            title: '退出失败！',
-            icon: 'loading',
-            duration: 1000
+    wx.showModal({
+      title: '您确定要退出登录吗？',
+      content: '退出之后，您将无法进行管理商品，管理发货等操作',
+      showCancel: true,
+      success: function (e) {
+        // 点击确定
+        if(!e.cancel) {
+          // 清空shopId,shopName,shopBalance
+          wx.clearStorage();
+          that.setData({
+            shopId: false
+          })
+          wx.request({
+            url: that.data.urlPrefix + 'shopAdminLogout.do',
+            method: 'POST',
+            data: {
+              'shopId': shopId
+            }, 
+            header: {
+              //设置参数内容类型为x-www-form-urlencoded
+              'content-type': 'application/x-www-form-urlencoded',
+            },
+            success: function (res) {
+              if(res.statusCode == 200) {
+                wx.showToast({
+                  title: '退出成功！',
+                  icon: 'success',
+                  duration: 1000
+                });
+              } else {
+                wx.showToast({
+                  title: '退出失败！',
+                  icon: 'loading',
+                  duration: 1000
+                });
+              }
+            },
+            fail: function () {
+              wx.showToast({
+                title: '退出失败！',
+                icon: 'loading',
+                duration: 1000
+              });
+            }
           });
         }
-      },
-      fail: function () {
-        wx.showToast({
-          title: '退出失败！',
-          icon: 'loading',
-          duration: 1000
-        });
       }
-    });
+    })
   }
 })

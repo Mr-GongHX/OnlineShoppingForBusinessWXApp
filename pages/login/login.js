@@ -54,16 +54,24 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {  
+          console.log("结果"+JSON.stringify(res.data))
           // 登录成功
-          if(res.statusCode == 200 && res.data) {
-            // 赋值（shopId）
-            app.globalData.shopId = res.data.shopId;
-            wx.setStorage({
-              key: '',
-              data: '',
-            })
-            // 修改登录状态 isLogin 为 true
-            app.globalData.isLogin = true;
+          if(res.statusCode == 200 && res.data.shopId) {
+              // 赋值（shopId）
+              wx.setStorage({
+                key: 'shopId',
+                data: res.data.shopId,
+              });
+              // 赋值（shopName）
+              wx.setStorage({
+                key: 'shopName',
+                data: res.data.shopName,
+              });
+              // 赋值(shopBalance)
+              wx.setStorage({
+                key: 'shopBalance',
+                data: res.data.shopBalance,
+              });
               wx.showToast({
                 title: '登录成功！',
                 icon: 'success',

@@ -16,48 +16,34 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
+    var that = this;
+    // var shopId = '';
+    // // wx.getStorage({
+    //   key: 'shopId',
+    //   success: function(res) {
+    //     that.setData({
+    //      shopId: res.data  
+    //     });
+    //     console.log("值"+that.data.shopId)
+    //   }
+    // });
     this.setData({
       urlPrefix : app.globalData.urlPrefix,
-      shopId : app.globalData.shopId
     }); 
-    var that = this;
     wx.request({
-      url: that.data.urlPrefix + 'goods/showMyGoods-' + that.data.shopId,
+      url: that.data.urlPrefix + 'goods/showMyGoods-' + wx.getStorage('shopId'),
       method: "POST",
       header: {
         "content-type": "application/x-www-form-urlencoded"
       },
       success: function(res) {
+        console.log(wx.getStorage('shopId'))
         var result =  res.data;
         if(res.statusCode == 200){
-          console.log("Goods:" + JSON.stringify(result));
           that.setData({
             goodsList: result
           });       
-        }
-      }
-    });
-  },
-  onShow: function (options){
-    this.setData({
-      urlPrefix: app.globalData.urlPrefix,
-      shopId: app.globalData.shopId
-    });
-    var that = this;
-    wx.request({
-      url: that.data.urlPrefix + 'goods/showMyGoods-' + that.data.shopId,
-      method: "POST",
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      success: function (res) {
-        var result = res.data;
-        if (res.statusCode == 200) {
-          console.log("Goods:" + JSON.stringify(result));
-          that.setData({
-            goodsList: result
-          });
         }
       }
     });

@@ -27,14 +27,14 @@
 
   <!-- 底部 start -->
   <view class="weui-cells weui-cells_after-title" wx:if="{{shopId}}">
-      <!-- <view class="content" bindtap="moveToMyAddress">
-        <text>我的地址</text>
-        <image src="../../images/right.png"></image>
+      <view class="content">
+        <text>店铺收入：{{shopBalance}}元</text>
+        <!-- <image src="../../images/right.png"></image> -->
       </view>
       <view class="content">
-        <text>我的订单</text>
+        <text>订单查询</text>
         <image src="../../images/right.png"></image>
-      </view> -->
+      </view>
       <!-- 退出登录 -->
       <view class="button">  
             <button 

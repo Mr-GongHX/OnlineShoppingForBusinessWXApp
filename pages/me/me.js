@@ -32,14 +32,6 @@ Page({
       },
     })
     wx.getStorage({
-      key: 'shopBalance',
-      success: function (res) {
-        that.setData({
-          shopBalance: res.data
-        });
-      },
-    })
-    wx.getStorage({
       key: 'shopName',
       success: function (res) {
         that.setData({
@@ -53,6 +45,31 @@ Page({
         that.setData({
           shopAdminProfile: that.data.urlPrefix + 
           'shop/shopAdminProfile-' + that.data.shopId
+        });
+        wx.request({
+          url: that.data.urlPrefix + 'shop/shopInfo-' + that.data.shopId,
+          method: "POST",
+          header: {
+            //设置参数内容类型为x-www-form-urlencoded
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function (res) { 
+            // 判断服务器是否响应成功
+            if (res.statusCode == 200){
+              wx.setStorage({
+                key: 'shopBalance',
+                data: res.data.shopBalance
+              })
+              wx.getStorage({
+                key: 'shopBalance',
+                success: function (res) {
+                  that.setData({
+                    shopBalance: res.data
+                  });
+                },
+              })
+            } 
+          }
         });
       }
     },500);
@@ -97,9 +114,12 @@ Page({
                 icon: 'success',
                 duration: 1000
               });
-              that.setData({
-                shopAdminProfile: imgUrl
-              });  
+              setTimeout(function(){
+                that.setData({
+                  shopAdminProfile: imgUrl
+                });  
+              },500);
+              clearTimeout();
             } else {
               wx.showToast({
                 title: '上传失败！',
@@ -129,23 +149,24 @@ Page({
       success: function (e) {
         // 点击确定
         if(!e.cancel) {
-          // 清空shopId,shopName,shopBalance
-          wx.clearStorage();
-          that.setData({
-            shopId: false
-          })
+          // 退出登录请求
           wx.request({
-            url: that.data.urlPrefix + 'shopAdminLogout.do',
+            url: that.data.urlPrefix + 'shop/shopAdminLogout.do',
             method: 'POST',
             data: {
-              'shopId': shopId
+              'shopId': that.data.shopId
             }, 
             header: {
               //设置参数内容类型为x-www-form-urlencoded
               'content-type': 'application/x-www-form-urlencoded',
             },
             success: function (res) {
-              if(res.statusCode == 200) {
+              if(res.statusCode == 200 && res.data) {
+                // 清空shopId,shopName,shopBalance
+                wx.clearStorage();
+                that.setData({
+                  shopId: false
+                })
                 wx.showToast({
                   title: '退出成功！',
                   icon: 'success',

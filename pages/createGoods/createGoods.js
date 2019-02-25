@@ -27,9 +27,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    wx.getStorage({
+      key: 'shopId',
+      success: function(res) {
+        that.setData({
+          shopId : res.data
+        })
+      },
+    });
     this.setData({
-      urlPrefix : app.globalData.urlPrefix,
-      shopId : app.globalData.shopId
+      urlPrefix : app.globalData.urlPrefix
     });
   },
   // 商品标题

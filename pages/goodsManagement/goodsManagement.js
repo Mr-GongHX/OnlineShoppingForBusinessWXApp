@@ -11,8 +11,24 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onShow: function (options) {
+    // 判断是否有shopId
+    wx.getStorage({
+      key: 'shopId',
+      fail: function () {
+        wx.showModal({
+          title: '您尚未登录',
+          content: '即将带您前往登录页',
+          showCancel: false,
+          success: function () {
+            wx.navigateTo({
+              url: '../login/login',
+            });
+          }
+        });
+      }
+    });
+    
   },
 
   /**

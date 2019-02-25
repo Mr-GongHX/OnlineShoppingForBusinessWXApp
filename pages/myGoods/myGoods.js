@@ -18,34 +18,35 @@ Page({
    */
   onShow: function (options) {
     var that = this;
-    // var shopId = '';
-    // // wx.getStorage({
-    //   key: 'shopId',
-    //   success: function(res) {
-    //     that.setData({
-    //      shopId: res.data  
-    //     });
-    //     console.log("值"+that.data.shopId)
-    //   }
-    // });
+    wx.getStorage({
+      key: 'shopId',
+      success: function(res) {
+        that.setData({
+         shopId: res.data  
+        });
+      }
+    });
     this.setData({
       urlPrefix : app.globalData.urlPrefix,
     }); 
-    wx.request({
-      url: that.data.urlPrefix + 'goods/showMyGoods-' + wx.getStorage('shopId'),
-      method: "POST",
-      header: {
-        "content-type": "application/x-www-form-urlencoded"
-      },
-      success: function(res) {
-        console.log(wx.getStorage('shopId'))
-        var result =  res.data;
-        if(res.statusCode == 200){
-          that.setData({
-            goodsList: result
-          });       
+    // 需要设定延时
+    setTimeout(function(){
+      wx.request({
+        url: that.data.urlPrefix + 'goods/showMyGoods-' + that.data.shopId,
+        method: "POST",
+        header: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        success: function(res) {
+          var result =  res.data;
+          if(res.statusCode == 200){
+            that.setData({
+              goodsList: result
+            });       
+          }
         }
-      }
-    });
+      });
+    },500);
+    clearTimeout();
   }
 })

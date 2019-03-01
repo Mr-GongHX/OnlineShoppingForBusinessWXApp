@@ -19,8 +19,7 @@ Page({
     goodsPrice: '',
     goodsAmount: '',
     goodsInfoList: [],
-    imgListStatus: false,
-    goodsInfoListStatus: false
+    videoSrc: ''
   },
 
   /**
@@ -127,6 +126,21 @@ Page({
       }
     });
   },
+  // 选择商品展示视频
+  chooseGoodsVideo: function () {
+    var that = this
+    wx.chooseVideo({
+      count: 1,            // 只能上传1个视频
+      compressed: true,    // 视频压缩
+      maxDuration: 15,     // 视频最长时间15秒
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        that.setData({
+          videoSrc: res.tempFilePath,
+        })
+      }
+    });
+  },
   // 发布商品
   formSubmit: function () {
     // 检测信息是否填写完整
@@ -135,7 +149,8 @@ Page({
       this.data.goodsPrice == '' ||
       this.data.goodsAmount == '' ||
       this.data.imgList == '' ||
-      this.data.goodsInfoList == '') {
+      this.data.goodsInfoList == '' ||
+      this.data.videoSrc == '') {
         wx.showToast({
           title: '请填写完整！',
           icon: 'loading',
@@ -171,7 +186,8 @@ Page({
             // 上传商品展示图
             for (var i = 0; i < imgList.length; i ++) {
               wx.uploadFile({
-                url: that.data.urlPrefix + 'goods/uploadGoodsImg-' + that.data.goodsId,
+                url: that.data.urlPrefix + 
+                'goods/uploadGoodsImg-' + that.data.goodsId,
                 filePath: imgList[i],
                 name: 'goodsImg',
                 header: {
@@ -179,9 +195,63 @@ Page({
                 },
                 success: function (res) {
                   if (res.statusCode == 200) {
-                    that.setData({
-                      imgListStatus : true
-                    })
+                    // 上传商品详情图
+                    for (var i = 0; i < goodsInfoList.length; i++) {
+                      wx.uploadFile({
+                        url: that.data.urlPrefix +
+                          'goods/uploadGoodsImgInfo-' + that.data.goodsId,
+                        filePath: goodsInfoList[i],
+                        name: 'goodsImgInfo',
+                        header: {
+                          "Content-Type": "multipart/form-data"
+                        },
+                        success: function (res) {
+                          if (res.statusCode == 200) {
+                            // 上传商品展示视频
+                            wx.uploadFile({
+                              url: that.data.urlPrefix +
+                                'goods/uploadGoodsVideo-' + that.data.goodsId,
+                              filePath: that.data.videoSrc,
+                              header: {
+                                'content-type': 'multipart/form-data'
+                              },
+                              name: 'goodsVideo',
+                              success: function (res) {
+                                console.log("video")
+                                if (res.statusCode == 200) {
+                                  wx.showToast({
+                                    title: '提交成功！',
+                                    icon: 'success',
+                                    duration: 1000
+                                  });
+                                  // 提交成功，返回前一页
+                                  setTimeout(function () {
+                                    wx.navigateBack({
+                                      count: 1
+                                    });
+                                  }, 500);
+                                  clearTimeout(); 
+                                }
+                              },
+                              fail: function (res) {
+                                wx.showToast({
+                                  title: '提交失败',
+                                  icon: 'loading',
+                                  duration: 1000
+                                });
+                              }
+                            });
+                          }
+                        },
+                        fail: function (res) {
+                          wx.showToast({
+                            title: '提交失败',
+                            icon: 'loading',
+                            duration: 1000
+                          });
+                        }
+                      });
+                    } 
                   }
                 },
                 fail: function (res) {
@@ -193,60 +263,6 @@ Page({
                 }
               });
             }
-            // 上传商品详情图
-            for (var i = 0; i < goodsInfoList.length; i++) {
-              wx.uploadFile({
-                url: that.data.urlPrefix + 'goods/uploadGoodsImgInfo-' + that.data.goodsId,
-                filePath: goodsInfoList[i],
-                name: 'goodsImgInfo',
-                header: {
-                  "Content-Type": "multipart/form-data"
-                },
-                success: function (res) {
-                  if (res.statusCode == 200) {
-                    that.setData({
-                      goodsInfoListStatus : true
-                    })
-
-                  }
-                },
-                fail: function (res) {
-                  wx.showToast({
-                    title: '提交失败',
-                    icon: 'loading',
-                    duration: 1000
-                  });
-                }
-              });
-            } 
-            // 全部提交成功
-            /**
-             * 需要设定延迟，因为状态的改变需要wx.request()的请求成功作为判断条件，而此请求需要一定的时间。若不设定延迟，
-             * 则状态还来不及赋值，会引起业务错误，造成判断错误
-             */           
-            setTimeout(function(){
-              if(that.data.imgListStatus && that.data.goodsInfoListStatus == true){
-                wx.showToast({
-                  title: '提交成功！',
-                  icon: 'success',
-                  duration: 1000
-                });
-                setTimeout(function(){
-                  wx.navigateBack({
-                    count: 1
-                  });
-                },500);
-                clearTimeout();  
-              } else {
-                // 部分信息提交失败
-                wx.showToast({
-                  title: '提交失败',
-                  icon: 'loading',
-                  duration: 1000
-                });
-              }
-            },500);
-            clearTimeout();
           }
         },
         fail: function (res) {

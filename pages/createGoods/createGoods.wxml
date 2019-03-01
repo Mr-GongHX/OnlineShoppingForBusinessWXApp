@@ -43,7 +43,11 @@
 
         <!-- 商品类型 -->
         <view class="goodsAmount">          
-          <picker bindchange="bindPickerChange" value="{{index}}" range="{{typeArray}}">
+          <picker 
+            bindchange="bindPickerChange" 
+            value="{{index}}" 
+            range="{{typeArray}}"
+          >
             <view>
               商品类型
               <view class='chooseTypeBtn' wx:if="{{type==''}}">请选择</view>
@@ -56,7 +60,9 @@
         <view class="goodsImage">
           <view>商品展示图片</view>
           <view class="button">  
-            <button class="chooseImgBtn" bindtap='chooseImg'>点击选择图片,最多5张</button>  
+            <button class="chooseImgBtn" bindtap='chooseImg'>
+              点击选择图片,最多5张
+            </button>  
           </view> 
           <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
             <image 
@@ -73,9 +79,16 @@
         <view class="goodsInfo">
           <view>商品详情介绍图片</view>
           <view class="button">  
-            <button class="chooseImgBtn" bindtap='chooseGoodsImgInfo'>点击选择图片,最多5张</button> 
+            <button class="chooseImgBtn" bindtap='chooseGoodsImgInfo'>
+              点击选择图片,最多5张
+            </button> 
           </view> 
-          <view class="img" wx:for="{{goodsInfoList}}" wx:for-item="item" wx:key="*this">
+          <view 
+            class="img" 
+            wx:for="{{goodsInfoList}}" 
+            wx:for-item="item" 
+            wx:key="*this"
+          >
             <image 
               src="{{item}}" 
               data-index="{{index}}" 
@@ -84,6 +97,19 @@
               bindlongpress="deleteImg"
             />
           </view>
+        </view>
+
+        <!-- 商品展示视频(15秒) -->
+        <view class="goodsInfo">
+          <view>商品展示视频(15秒)</view>
+          <view class="button">  
+            <button class="chooseImgBtn" bindtap='chooseGoodsVideo'>
+              点击选择商品展示视频
+            </button> 
+          </view> 
+          <block wx:if="{{videoSrc != ''}}">
+            <video src="{{videoSrc}}" />
+          </block>
         </view>
         
         <!-- 发布商品 -->

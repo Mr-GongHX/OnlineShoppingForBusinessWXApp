@@ -47,6 +47,11 @@
   border-radius: 30rpx;
 }
 
+/* 选择商品展示视频 */
+.goodsInfo video {
+  margin-left: 105rpx;
+}
+
 .goodsname {
   width: 100%;
   border-bottom: 20rpx solid #eee;

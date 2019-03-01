@@ -46,4 +46,17 @@
       <text wx:else>您未上传商品详情图!</text>
     </view>
   </view>
+  <view>
+    商品展示视频：
+    <view class='imageArea'>
+      <!-- 视频不自动播放，进行循环播放，最长15秒 -->
+      <video 
+        wx:if="{{item.goodsVideoPath}}"  
+        duration="15"
+        loop
+        src='{{urlPrefix}}goods/showMyGoodsVideo-{{item.goodsId}}'
+      />
+      <text wx:else>您未上传商品展示视频!</text>
+    </view>
+  </view>
 </view>

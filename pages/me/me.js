@@ -20,7 +20,7 @@ Page({
     this.setData({
       urlPrefix: app.globalData.urlPrefix
     });
-    // 初始化设置数据（商家id，用户头像网络地址，商家名称，商家营业额）
+    // 初始化设置数据（商家id，商家头像网络地址，商家名称，商家营业额）
     var that = this;
     // 获取相应数据
     wx.getStorage({
@@ -190,6 +190,6 @@ Page({
           });
         }
       }
-    })
+    });
   }
 })

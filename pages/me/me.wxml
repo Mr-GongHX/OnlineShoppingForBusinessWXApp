@@ -12,8 +12,9 @@
         />
         <image 
           wx:else
-          style="border-radius:50%; border:1rpx solid white;" 
-          src="" 
+          style="border-radius:50%; border:1rpx solid white; background:white;" 
+          src="../../images/me.png" 
+          mode='aspectFill'
         />
       </view>
       <view class="show">

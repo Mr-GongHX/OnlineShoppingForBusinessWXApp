@@ -13,7 +13,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.1",
+	"libVersion": "2.6.2",
 	"appid": "wx054778a6d0924157",
 	"projectname": "%E5%9C%A8%E7%BA%BF%E8%B4%AD%E7%89%A9%E7%BD%91%E5%95%86%E5%AE%B6%E7%89%88",
 	"debugOptions": {

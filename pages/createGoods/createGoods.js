@@ -229,7 +229,7 @@ Page({
                                     wx.navigateBack({
                                       count: 1
                                     });
-                                  }, 500);
+                                  }, 2000);
                                   clearTimeout(); 
                                 }
                               },

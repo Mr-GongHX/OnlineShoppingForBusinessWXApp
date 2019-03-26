@@ -4,7 +4,10 @@
     您尚未发布商品
   </view>
   <view wx:else>
-    <view class="goodsList" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="{{goodsId}}">
+    <view 
+      class="goodsList" wx:for="{{goodsList}}" 
+      wx:for-index="index" wx:for-item="item" wx:key="{{goodsId}}"
+    >
         <!-- 只有商品状态为已上架，已下架才可以编辑并且跳转到商品编辑页面 -->
         <navigator wx:if="{{item.goodsStatus==1||item.goodsStatus==2}}" 
           url='../modifyGoods/modifyGoods?goodsId={{item.goodsId}}' 

@@ -30,7 +30,6 @@
   <view class="weui-cells weui-cells_after-title" wx:if="{{shopId}}">
       <view class="content">
         <text>店铺收入：{{shopBalance}}元</text>
-        <!-- <image src="../../images/right.png"></image> -->
       </view>
       <view class="content">
         <text>订单查询</text>

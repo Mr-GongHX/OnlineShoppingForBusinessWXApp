@@ -1,8 +1,23 @@
 /* pages/goodsManagement/goodsManagement.wxss */
+/* 标题 */
+.title{
+  height: 50rpx;
+  width: 100%;
+  margin-top: 100rpx;
+}
+
+.title view{
+  background-image: linear-gradient(-110deg, #FF3030 0%, #992323 53%, #2323bb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  font-size: 55rpx;
+  font-weight: bold;
+}
 
 /* 发布商品按钮 */
 .button {
-  margin-top: 0px;
+  margin-top: 100px;
   margin-bottom: 0px;
   padding-bottom: 0px;
 }

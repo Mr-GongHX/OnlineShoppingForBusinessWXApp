@@ -1,5 +1,10 @@
 <!-- 商品管理页 -->
 <view>
+  <!-- 标题 start -->
+    <view class="title">
+      <view>欢迎使用在线购物网</view>
+    </view>
+    <!-- 标题 end -->
   <!-- 发布商品 -->
   <view class="button">  
       <button class="createGoodsBtn" bindtap='createGoods'>发布商品</button>  

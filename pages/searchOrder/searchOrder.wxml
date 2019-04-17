@@ -1,11 +1,11 @@
-<!-- 发货管理 -->
+<!-- 订单查询 -->
 <view class='container'>
   <block wx:if="{{orderList.length>0}}">   
     <!-- 订单列表 start -->
     <view class='orderList' wx:for="{{orderList}}" wx:key="key">
         <!-- 订单头部 start -->
         <view class='head'>
-          <label class='shopName'>店铺：{{item.shopName}}</label>
+          <label class='shopName'>用户：{{item.userNickname}}</label>
           <!-- 订单状态 -->
           <block wx:if="{{item.orderStatus==0}}">
             <label class='status'>待发货</label>
@@ -48,12 +48,6 @@
             <text class='totalPrice'>合计: ￥{{item.totalPrice}}</text>
           </view>
         </view>
-        <view class='button'>
-          <text class='tips'>若您已发货，请点击</text>
-          <button class='checkBtn' bindtap='completed' 
-            data-id='{{item.orderId}}'
-          >已发货</button>
-        </view>
         <!-- 订单底部 end -->
     </view>
     <!-- 订单列表 end -->
@@ -62,7 +56,7 @@
   <!-- 无订单数据图层 start -->
   <block wx:else>
     <view class='text'>
-      <view>暂无待处理订单！</view>
+      <view>无订单数据！</view>
     </view>
   </block>
   <!-- 无订单数据图层 end -->

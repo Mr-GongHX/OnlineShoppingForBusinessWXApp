@@ -191,5 +191,13 @@ Page({
         }
       }
     });
+  },
+  /**
+   * 跳转订单查询页
+   */
+  toSearchOrder: function () {
+    wx.navigateTo({
+      url: '../searchOrder/searchOrder',
+    })
   }
 })

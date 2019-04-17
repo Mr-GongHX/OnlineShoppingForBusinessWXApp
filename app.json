@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/goodsManagement/goodsManagement",
     "pages/deliveryManagement/deliveryManagement",
     "pages/me/me",
@@ -7,13 +7,14 @@
     "pages/register/register",
     "pages/createGoods/createGoods",
     "pages/myGoods/myGoods",
-    "pages/modifyGoods/modifyGoods"
+    "pages/modifyGoods/modifyGoods",
+    "pages/searchOrder/searchOrder"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FF3030",
     "navigationBarTitleText": "在线购物网商家版",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "selectedColor": "#FF3030",
@@ -39,5 +40,6 @@
         "selectedIconPath": "images/me-chosen.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

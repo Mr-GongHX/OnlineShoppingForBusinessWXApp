@@ -66,45 +66,6 @@
         </view>
       </picker>
     </view>
-
-    <!-- 商品图片 -->
-    <view class="goodsImage">
-      <view>商品展示图片</view>
-      <view class="button">  
-        <button class="chooseImgBtn" bindtap='chooseImg'
-        >点击选择图片,最多5张</button>  
-      </view> 
-      <view class="img" wx:for="{{imgList}}" wx:for-item="item" wx:key="*this">
-        <image 
-          src="{{item}}" 
-          data-index="{{index}}" 
-          mode="widthFix" 
-          bindtap="previewImg" 
-          bindlongpress="deleteImg"
-        />
-      </view>
-    </view>
-
-    <!-- 商品介绍图片 -->
-    <view class="goodsInfo">
-      <view>商品详情介绍图片</view>
-      <view class="button">  
-        <button class="chooseImgBtn" bindtap='chooseGoodsImgInfo'
-        >点击选择图片,最多5张</button> 
-      </view> 
-      <view 
-        class="img" wx:for="{{goodsInfoList}}" 
-        wx:for-item="item" wx:key="*this"
-      >
-        <image 
-          src="{{item}}" 
-          data-index="{{index}}" 
-          mode="widthFix" 
-          bindtap="previewImg" 
-          bindlongpress="deleteImg"
-        />
-      </view>
-    </view>
     
     <!-- 商品操作 -->
     <view class="goodsButton">  

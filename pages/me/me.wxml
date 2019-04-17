@@ -31,7 +31,7 @@
       <view class="content">
         <text>店铺收入：{{shopBalance}}元</text>
       </view>
-      <view class="content">
+      <view class="content" bindtap="toSearchOrder">
         <text>订单查询</text>
         <image src="../../images/right.png"></image>
       </view>

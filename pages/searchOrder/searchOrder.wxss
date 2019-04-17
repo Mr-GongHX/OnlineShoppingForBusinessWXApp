@@ -1,4 +1,4 @@
-/* pages/deliveryManagement/deliveryManagement.wxss */
+/* pages/searchOrder/searchOrder.wxss */
 .container {
   background-color: #EBEBEB;
 }
@@ -47,7 +47,6 @@
 }
 /* 列表图片 */
 .list_img{
-  border: 3rpx solid #ccc;
   position: absolute;
   width:144rpx;
   height: 144rpx;
@@ -124,15 +123,23 @@
   line-height: 150rpx;
   background-color:  #fff;
 } 
-/* 文字提示 */
-.tips {
-  font-size: 31rpx;
-  color: #333333;
+/* 取消订单按钮 */
+.cancelBtn{
   position: absolute;
-  top: -33rpx;
-  right: 210rpx;
+  top: 12rpx;
+  color: black;
+  right: 215rpx;
+  display: inline-block;
+  width: 170rpx;
+  height: 55rpx;
+  text-align: center;
+  font-weight: bold;
+  border: 3rpx black solid; 
+  border-radius: 15rpx;
+  font-size: 30rpx;
+  line-height: 57rpx;
 }
-/* 已发货按钮 */
+/* 确认收货按钮 */
 .checkBtn{
   position: absolute;
   top: 12rpx;

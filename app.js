@@ -25,6 +25,6 @@ App({
     })
   },
   globalData: {
-    urlPrefix: "http://localhost:8080/"
+    urlPrefix: "http://39.105.167.27:8080/"
   }
 })
